@@ -313,14 +313,14 @@ h1,h2,h3{font-family:'Playfair Display',serif;font-style:italic}
             <p style="font-size:10px;color:var(--muted);">bitecraft8@gmail.com</p>
         </div>
 
-        <button class="back-btn" id="back-lang" onclick="showLangScreen()"></button>
+        <button class="back-btn" id="back-lang" onclick="appBack()"></button>
     </div>
 
     <div id="screen-categories" class="screen">
         <h2 class="category-header" id="cat-title"></h2>
         <input class="search" id="cat-search" oninput="renderCategories()" placeholder="">
         <div id="categories-list"></div>
-        <button class="back-btn" id="back-cat" onclick="goHome()"></button>
+        <button class="back-btn" id="back-cat" onclick="appBack()"></button>
     </div>
 
     <div id="screen-items" class="screen">
@@ -328,7 +328,7 @@ h1,h2,h3{font-family:'Playfair Display',serif;font-style:italic}
         <p class="note" id="tap-note"></p>
         <input class="search" id="item-search" oninput="renderItems()" placeholder="">
         <div id="items-list"></div>
-        <button class="back-btn" id="back-items" onclick="showMenu()"></button>
+        <button class="back-btn" id="back-items" onclick="appBack()"></button>
     </div>
 </div>
 
@@ -1981,7 +1981,82 @@ function hideAll(){
     document.querySelectorAll(".screen").forEach(s=>s.style.display="none");
     window.scrollTo(0,0);
 }
-function showLangScreen(){hideAll();document.getElementById("screen-lang").style.display="block";}
+
+function showOnly(screenId){
+    document.querySelectorAll(".screen").forEach(s=>s.style.display="none");
+    const el=document.getElementById(screenId);
+    if(el) el.style.display="block";
+    window.scrollTo(0,0);
+}
+
+function makeAppState(screen, catKey){
+    return {app:true, screen:screen, lang:lang, catKey:catKey || currentCategory || null};
+}
+
+function pushAppState(screen, catKey){
+    const state=makeAppState(screen, catKey);
+    history.pushState(state, "", "#" + screen);
+    renderAppState(state);
+}
+
+function appBack(){
+    history.back();
+}
+
+function renderAppState(state){
+    if(!state || !state.app) state={app:true, screen:"lang", lang:lang, catKey:null};
+
+    const modal=document.getElementById("item-modal");
+    if(modal) modal.style.display="none";
+
+    if(state.lang && content[state.lang]){
+        lang=state.lang;
+        document.documentElement.lang=lang;
+    }
+
+    if(state.screen==="lang"){
+        showOnly("screen-lang");
+        return;
+    }
+
+    if(state.screen==="home"){
+        showOnly("screen-home");
+        return;
+    }
+
+    if(state.screen==="categories"){
+        document.getElementById("cat-title").innerText=content[lang].catTitle;
+        document.getElementById("cat-search").value="";
+        renderCategories();
+        showOnly("screen-categories");
+        return;
+    }
+
+    if(state.screen==="items"){
+        currentCategory=state.catKey || currentCategory;
+        if(currentCategory && fullMenu[currentCategory]){
+            document.getElementById("item-cat-title").innerText=getText(fullMenu[currentCategory].title);
+            document.getElementById("item-search").value="";
+            renderItems();
+            showOnly("screen-items");
+        }else{
+            document.getElementById("cat-title").innerText=content[lang].catTitle;
+            renderCategories();
+            showOnly("screen-categories");
+        }
+        return;
+    }
+
+    if(state.screen==="modal"){
+        showOnly("screen-items");
+        return;
+    }
+
+    showOnly("screen-lang");
+}
+function showLangScreen(){
+    pushAppState("lang", null);
+}
 function setLang(l){
     lang=l;
     document.documentElement.lang=l;
@@ -2002,16 +2077,13 @@ function setLang(l){
     document.getElementById("modal-close").innerText=content[lang].close;
     document.getElementById("footer-premium").innerText=content[lang].footerPremium;
     document.getElementById("footer-info-text").innerText=content[lang].footerInfo;
-    hideAll();
-    document.getElementById("screen-home").style.display="block";
+    pushAppState("home", null);
 }
-function goHome(){hideAll();document.getElementById("screen-home").style.display="block";}
+function goHome(){
+    pushAppState("home", null);
+}
 function showMenu(){
-    hideAll();
-    document.getElementById("cat-title").innerText=content[lang].catTitle;
-    document.getElementById("cat-search").value="";
-    renderCategories();
-    document.getElementById("screen-categories").style.display="block";
+    pushAppState("categories", null);
 }
 function renderCategories(){
     const q=document.getElementById("cat-search").value.toLowerCase().trim();
@@ -2029,11 +2101,7 @@ function renderCategories(){
 }
 function showItems(catKey){
     currentCategory=catKey;
-    hideAll();
-    document.getElementById("item-cat-title").innerText=getText(fullMenu[catKey].title);
-    document.getElementById("item-search").value="";
-    renderItems();
-    document.getElementById("screen-items").style.display="block";
+    pushAppState("items", catKey);
 }
 function priceText(price){
     if(String(price).includes("/")) return price + " RSD";
@@ -2073,13 +2141,31 @@ function openItem(it){
     document.getElementById("modal-price").innerText=priceText(it.price);
     document.getElementById("modal-img").innerHTML=it.img ? `<img src="${it.img}" alt="${n}">` : it.icon;
     document.getElementById("item-modal").style.display="flex";
+    history.pushState({app:true, screen:"modal", lang:lang, catKey:currentCategory}, "", "#modal");
 }
-function hideModal(){document.getElementById("item-modal").style.display="none";}
+function hideModal(){
+    const modal=document.getElementById("item-modal");
+    if(modal && modal.style.display==="flex" && history.state && history.state.app && history.state.screen==="modal"){
+        history.back();
+    }else if(modal){
+        modal.style.display="none";
+    }
+}
 function closeModal(e){if(e.target.id==="item-modal") hideModal();}
 function handleRes(){window.location.href="tel:+38136338872";}
 function openReviews(){
     window.open("https://www.google.com/search?q=tramonto+ocene+kraljevo&oq=tramonto+ocene+kraljevo#lrd=0x47570168759d6a1b:0x7214f9c03e69666b,3,,,,","_blank");
 }
+window.addEventListener("popstate", function(e){
+    if(e.state && e.state.app){
+        renderAppState(e.state);
+    }else{
+        renderAppState({app:true, screen:"lang", lang:lang, catKey:null});
+    }
+});
+
+history.replaceState({app:true, screen:"lang", lang:lang, catKey:null}, "", "#lang");
+
 </script>
 </body>
 </html>
