@@ -346,6 +346,28 @@ h1,h2,h3{font-family:'Playfair Display',serif;font-style:italic}
     text-transform:uppercase;
 }
 
+
+.food-item.possible-fasting-item{
+    border-color:rgba(241,210,138,.95);
+    background:linear-gradient(135deg,rgba(241,210,138,.18),rgba(255,255,255,.05));
+    box-shadow:0 12px 32px rgba(241,210,138,.12);
+}
+.possible-fasting-badge{
+    display:inline-block;
+    color:#f1d28a;
+    font-family:'Montserrat',sans-serif;
+    font-style:normal;
+    font-size:10px;
+    font-weight:800;
+    letter-spacing:.9px;
+    border:1px solid rgba(241,210,138,.95);
+    border-radius:999px;
+    padding:3px 7px;
+    margin-left:7px;
+    vertical-align:middle;
+    text-transform:uppercase;
+}
+
 .category-footer-note{
     margin:22px 0 8px;
     padding:18px 16px;
@@ -453,11 +475,11 @@ let lang = "sr";
 let currentCategory = null;
 
 const content = {
-    sr:{welcome:"Dobrodošli",sub:"Izaberite opciju",menu:"Meni",menuSub:"Hrana i piće",res:"Rezervacije",resSub:"Obezbedite vaše mesto",rev:"Oceni nas",revSub:"Vaše mišljenje nam znači",back:"Nazad",backToMenu:"Nazad na meni",view:"Pogledaj ponudu",catTitle:"Kategorije",search:"Pretraži...",tap:"Klikni na bilo koje jelo/piće za veću sliku i detalje.",close:"Zatvori",noDesc:"Detaljan opis i slika biće dodati uskoro.",from:"od",fasting:"Posno",footerPremium:"PREMIJUM DIGITALNI MENI",footerInfo:"Više informacija za digitalni meni"},
-    en:{welcome:"Welcome",sub:"Choose an option",menu:"Menu",menuSub:"Food & drinks",res:"Reservations",resSub:"Book your table",rev:"Rate us",revSub:"Your opinion matters",back:"Back",backToMenu:"Back to menu",view:"View selection",catTitle:"Categories",search:"Search...",tap:"Tap any item to see a larger image and details.",close:"Close",noDesc:"Detailed description and photo will be added soon.",from:"from",fasting:"Fasting",footerPremium:"PREMIUM DIGITAL MENU",footerInfo:"More information about the digital menu"},
-    ru:{welcome:"Добро пожаловать",sub:"Выберите опцию",menu:"Меню",menuSub:"Еда и напитки",res:"Бронирование",resSub:"Забронируйте стол",rev:"Оценить нас",revSub:"Ваше мнение важно",back:"Назад",backToMenu:"Назад в меню",view:"Посмотреть",catTitle:"Категории",search:"Поиск...",tap:"Нажмите на позицию, чтобы увидеть крупное фото и детали.",close:"Закрыть",noDesc:"Подробное описание и фото будут добавлены позже.",from:"от",fasting:"Постное",footerPremium:"ПРЕМИАЛЬНОЕ ЦИФРОВОЕ МЕНЮ",footerInfo:"Подробнее о цифровом меню"},
-    tr:{welcome:"Hoş geldiniz",sub:"Bir seçenek seçin",menu:"Menü",menuSub:"Yiyecek ve içecekler",res:"Rezervasyon",resSub:"Masanızı ayırtın",rev:"Bizi değerlendirin",revSub:"Görüşünüz bizim için önemli",back:"Geri",backToMenu:"Menüye geri dön",view:"Seçenekleri gör",catTitle:"Kategoriler",search:"Ara...",tap:"Daha büyük fotoğraf ve detaylar için ürüne dokunun.",close:"Kapat",noDesc:"Detaylı açıklama ve fotoğraf yakında eklenecek.",from:"den",fasting:"Oruç",footerPremium:"PREMIUM DİJİTAL MENÜ",footerInfo:"Dijital menü hakkında daha fazla bilgi"},
-    zh:{welcome:"欢迎",sub:"请选择一个选项",menu:"菜单",menuSub:"餐食和饮品",res:"预订",resSub:"预订您的座位",rev:"评价我们",revSub:"您的意见对我们很重要",back:"返回",backToMenu:"返回菜单",view:"查看选项",catTitle:"分类",search:"搜索...",tap:"点击任意菜品或饮品，查看大图和详情。",close:"关闭",noDesc:"详细说明和照片将很快添加。",from:"起",fasting:"斋戒",footerPremium:"高级电子菜单",footerInfo:"了解更多电子菜单信息"}
+    sr:{welcome:"Dobrodošli",sub:"Izaberite opciju",menu:"Meni",menuSub:"Hrana i piće",res:"Rezervacije",resSub:"Obezbedite vaše mesto",rev:"Oceni nas",revSub:"Vaše mišljenje nam znači",back:"Nazad",backToMenu:"Nazad na meni",view:"Pogledaj ponudu",catTitle:"Kategorije",search:"Pretraži...",tap:"Klikni na bilo koje jelo/piće za veću sliku i detalje.",close:"Zatvori",noDesc:"Detaljan opis i slika biće dodati uskoro.",from:"od",fasting:"Posno",footerPremium:"PREMIJUM DIGITALNI MENI",footerInfo:"Više informacija za digitalni meni",possibleFasting:"Može posno"},
+    en:{welcome:"Welcome",sub:"Choose an option",menu:"Menu",menuSub:"Food & drinks",res:"Reservations",resSub:"Book your table",rev:"Rate us",revSub:"Your opinion matters",back:"Back",backToMenu:"Back to menu",view:"View selection",catTitle:"Categories",search:"Search...",tap:"Tap any item to see a larger image and details.",close:"Close",noDesc:"Detailed description and photo will be added soon.",from:"from",fasting:"Fasting",footerPremium:"PREMIUM DIGITAL MENU",footerInfo:"More information about the digital menu",possibleFasting:"Can be fasting"},
+    ru:{welcome:"Добро пожаловать",sub:"Выберите опцию",menu:"Меню",menuSub:"Еда и напитки",res:"Бронирование",resSub:"Забронируйте стол",rev:"Оценить нас",revSub:"Ваше мнение важно",back:"Назад",backToMenu:"Назад в меню",view:"Посмотреть",catTitle:"Категории",search:"Поиск...",tap:"Нажмите на позицию, чтобы увидеть крупное фото и детали.",close:"Закрыть",noDesc:"Подробное описание и фото будут добавлены позже.",from:"от",fasting:"Постное",footerPremium:"ПРЕМИАЛЬНОЕ ЦИФРОВОЕ МЕНЮ",footerInfo:"Подробнее о цифровом меню",possibleFasting:"Можно постное"},
+    tr:{welcome:"Hoş geldiniz",sub:"Bir seçenek seçin",menu:"Menü",menuSub:"Yiyecek ve içecekler",res:"Rezervasyon",resSub:"Masanızı ayırtın",rev:"Bizi değerlendirin",revSub:"Görüşünüz bizim için önemli",back:"Geri",backToMenu:"Menüye geri dön",view:"Seçenekleri gör",catTitle:"Kategoriler",search:"Ara...",tap:"Daha büyük fotoğraf ve detaylar için ürüne dokunun.",close:"Kapat",noDesc:"Detaylı açıklama ve fotoğraf yakında eklenecek.",from:"den",fasting:"Oruç",footerPremium:"PREMIUM DİJİTAL MENÜ",footerInfo:"Dijital menü hakkında daha fazla bilgi",possibleFasting:"Oruç için yapılabilir"},
+    zh:{welcome:"欢迎",sub:"请选择一个选项",menu:"菜单",menuSub:"餐食和饮品",res:"预订",resSub:"预订您的座位",rev:"评价我们",revSub:"您的意见对我们很重要",back:"返回",backToMenu:"返回菜单",view:"查看选项",catTitle:"分类",search:"搜索...",tap:"点击任意菜品或饮品，查看大图和详情。",close:"关闭",noDesc:"详细说明和照片将很快添加。",from:"起",fasting:"斋戒",footerPremium:"高级电子菜单",footerInfo:"了解更多电子菜单信息",possibleFasting:"可做斋戒版"}
 };
 
 const catTitle = {};
@@ -1964,11 +1986,11 @@ mesni_meni:{
                                 "zh": "鸡肉塔基托"
                         },
                         "desc": {
-                                "sr": "pileći file u tortilji, pomfrit, beli Tramonto sos",
-                                "en": "chicken fillet in a tortilla, French fries, white Tramonto sauce",
-                                "ru": "куриное филе в тортилье, картофель фри, белый соус Tramonto",
-                                "tr": "tortilla içinde tavuk fileto, patates kızartması, beyaz Tramonto sos",
-                                "zh": "玉米饼鸡胸柳、炸薯条、白色Tramonto酱"
+                                "sr": "pileći file 250g u tortilji, pomfrit, beli Tramonto sos",
+                                "en": "250 g chicken fillet in a tortilla, French fries, white Tramonto sauce",
+                                "ru": "куриное филе 250 г в тортилье, картофель фри, белый соус Tramonto",
+                                "tr": "250 g tavuk fileto tortilla içinde, patates kızartması, beyaz Tramonto sos",
+                                "zh": "250克玉米饼鸡胸柳、炸薯条、白色Tramonto酱"
                         }
                 },
                 {
@@ -2271,7 +2293,7 @@ pizze:{
             icon:"",
             price:"780 / 980",
             fasting:true,
-            name:{sr:"Pizza sa povrćem",en:"Vegetable pizza",ru:"Овощная пицца",tr:"Sebzeli pizza",zh:"蔬菜披萨"},
+            name:{sr:"Posna pizza",en:"Fasting pizza",ru:"Постная пицца",tr:"Oruç pizzası",zh:"斋戒披萨"},
             desc:{sr:"san marzano pelat, kačkavalj, grilovane tikvice, paprika, kukuruz šećerac, masline",en:"San Marzano tomato sauce, yellow cheese, grilled zucchini, pepper, sweet corn, olives",ru:"томатный соус Сан-Марцано, сыр, жареные цукини, перец, сладкая кукуруза, оливки",tr:"San Marzano domates sosu, kaşar peyniri, ızgara kabak, biber, mısır, zeytin",zh:"圣马扎诺番茄酱、黄奶酪、烤西葫芦、甜椒、甜玉米、橄榄"}
         },
         {
@@ -2663,7 +2685,7 @@ pice:{
 ,
 posno:{
     title:{sr:"Posno",en:"Fasting / Vegan-style",ru:"Постное",tr:"Vegan / oruç menüsü",zh:"斋戒/素食"},
-    note:{sr:"Sva posna jela na jednom mestu",en:"All fasting-friendly dishes in one place",ru:"Все постные блюда в одном месте",tr:"Tüm vegan/oruç seçenekleri bir arada",zh:"所有斋戒/素食菜品集中在这里"},
+    note:{sr:"Posna jela i jela koja mogu biti posna ako naglasite konobaru",en:"Fasting dishes and dishes that can be made fasting-style if you tell the waiter",ru:"Постные блюда и блюда, которые можно приготовить постными, если предупредить официанта",tr:"Oruç/vegan uygun yemekler ve garsona söylerseniz bu şekilde hazırlanabilecek yemekler",zh:"斋戒/素食菜品，以及告知服务员后可做成斋戒/素食版的菜品"},
     items:[
     {
         "icon": "",
@@ -2765,11 +2787,11 @@ posno:{
         "price": "780 / 980",
         "fasting": true,
         "name": {
-            "sr": "Pizza sa povrćem",
-            "en": "Vegetable pizza",
-            "ru": "Овощная пицца",
-            "tr": "Sebzeli pizza",
-            "zh": "蔬菜披萨"
+            "sr": "Posna pizza",
+            "en": "Fasting pizza",
+            "ru": "Постная пицца",
+            "tr": "Oruç pizzası",
+            "zh": "斋戒披萨"
         },
         "desc": {
             "sr": "san marzano pelat, kačkavalj, grilovane tikvice, paprika, kukuruz šećerac, masline",
@@ -2784,6 +2806,64 @@ posno:{
 
 
 };
+
+
+const possibleFastingNote = {
+    sr:"Napomena: ovo jelo može biti posno samo ako naglasite konobaru da ga pripremi posno.",
+    en:"Note: this dish can be made fasting-style only if you tell the waiter to prepare it that way.",
+    ru:"Примечание: это блюдо можно приготовить постным только если вы заранее скажете официанту.",
+    tr:"Not: Bu yemek sadece garsona oruç/vegan usulü hazırlanmasını özellikle söylerseniz bu şekilde yapılabilir.",
+    zh:"注意：这道菜只有在您告知服务员需要斋戒/素食做法时，才可以按此方式制作。"
+};
+
+function appendPossibleFastingNote(desc){
+    const out={};
+    Object.keys(content).forEach(l=>{
+        const base=(desc && (desc[l] || desc.en || desc.sr)) || "";
+        const note=possibleFastingNote[l] || possibleFastingNote.en;
+        out[l]=base.includes(note) ? base : (base ? base + " " + note : note);
+    });
+    return out;
+}
+
+function findMenuItemsBySr(names){
+    const found=[];
+    const wanted=new Set(names.map(n=>n.toLowerCase()));
+    Object.keys(fullMenu).forEach(catKey=>{
+        if(catKey === "posno") return;
+        const cat=fullMenu[catKey];
+        (cat.items || []).forEach(item=>{
+            const sr=item.name && item.name.sr ? item.name.sr.toLowerCase() : "";
+            if(wanted.has(sr)) found.push(item);
+        });
+        (cat.sections || []).forEach(sec=>{
+            (sec.items || []).forEach(item=>{
+                const sr=item.name && item.name.sr ? item.name.sr.toLowerCase() : "";
+                if(wanted.has(sr)) found.push(item);
+            });
+        });
+    });
+    return found;
+}
+
+function addUniqueToFastingCategory(item){
+    if(!fullMenu.posno || !fullMenu.posno.items) return;
+    const sr=item.name && item.name.sr ? item.name.sr : "";
+    const exists=fullMenu.posno.items.some(x=>x.name && x.name.sr === sr);
+    if(!exists) fullMenu.posno.items.push({...item, desc:{...(item.desc || {})}});
+}
+
+findMenuItemsBySr(["Tuna pasta salata","Arabiatta","Fungi","Tramonto pizza","Tramonto Nero","Mediterana"]).forEach(item=>{
+    item.possibleFasting=true;
+    item.desc=appendPossibleFastingNote(item.desc);
+    addUniqueToFastingCategory(item);
+});
+
+findMenuItemsBySr(["Posna pizza"]).forEach(item=>{
+    item.fasting=true;
+    item.possibleFasting=false;
+    addUniqueToFastingCategory(item);
+});
 
 function getText(obj){
     if(!obj) return "";
@@ -2972,12 +3052,12 @@ function renderItems(){
         const search=(n+" "+d+" "+it.price).toLowerCase();
         if(q && !search.includes(q)) return;
         const card=document.createElement("div");
-        card.className="food-item" + (it.fasting ? " fasting-item" : ((it.special && lang !== "sr") ? " special-item" : ""));
+        card.className="food-item" + (it.fasting ? " fasting-item" : (it.possibleFasting ? " possible-fasting-item" : ((it.special && lang !== "sr") ? " special-item" : "")));
         card.onclick=()=>openItem(it);
         card.innerHTML=`
             <div class="food-img">${it.img ? `<img src="${it.img}" alt="${n}">` : ""}</div>
             <div class="food-info">
-                <h4>${n}${it.fasting ? ` <span class="fasting-badge">${content[lang].fasting}</span>` : ""}</h4>
+                <h4>${n}${it.fasting ? ` <span class="fasting-badge">${content[lang].fasting}</span>` : (it.possibleFasting ? ` <span class="possible-fasting-badge">${content[lang].possibleFasting}</span>` : "")}</h4>
                 ${d ? `<p>${d}</p>` : ""}
             </div>
             <div class="food-price">${it.price}<small>RSD</small></div>
